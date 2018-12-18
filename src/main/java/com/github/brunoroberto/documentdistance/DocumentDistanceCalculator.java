@@ -3,9 +3,6 @@ package com.github.brunoroberto.documentdistance;
 import com.github.brunoroberto.documentdistance.time.ExecutionTime;
 
 /**
- * Problem: 
- * 
- * 
  * 
  * @author brunoroberto
  *
@@ -23,7 +20,7 @@ public class DocumentDistanceCalculator {
 		try {
 			String[] words = getBiggest(d1, d2).getWords();
 			int product = calculateProd(words, d1, d2);
-			return (product / Math.sqrt(d1.length() * d2.length()));
+			return Math.acos(product / Math.sqrt(d1.length() * d2.length()));
 		} finally {
 			this.executionTime.stop();
 		}

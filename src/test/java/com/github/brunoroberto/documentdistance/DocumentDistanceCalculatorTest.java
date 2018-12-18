@@ -15,10 +15,13 @@ public class DocumentDistanceCalculatorTest {
 		String text1 = "The roses are red";
 		String text2 = "Be or not to be";
 
-		double distance = calculateSimilarity(text1, text2);
-		printSimiliarity(distance);
+		System.out.println("Text1 = " + text1);
+		System.out.println("Text2 = " + text2);
 
-		assertEquals(0.0, distance, 0.0);
+		double distance = calculateDistance(text1, text2);
+		printDistance(distance);
+
+		assertEquals((Math.PI / 2), distance, 0.0);
 	}
 
 	@Test
@@ -28,10 +31,13 @@ public class DocumentDistanceCalculatorTest {
 		String text1 = "The roses are red";
 		String text2 = "The roses are red";
 
-		double distance = calculateSimilarity(text1, text2);
-		printSimiliarity(distance);
+		System.out.println("Text1 = " + text1);
+		System.out.println("Text2 = " + text2);
 
-		assertEquals(1.0, distance, 0.0);
+		double distance = calculateDistance(text1, text2);
+		printDistance(distance);
+
+		assertEquals(0.0, distance, 0.0);
 	}
 
 	@Test
@@ -41,21 +47,32 @@ public class DocumentDistanceCalculatorTest {
 		String text1 = "The roses are red";
 		String text2 = "The roses are pink";
 
-		double distance = calculateSimilarity(text1, text2);
-		printSimiliarity(distance);
+		System.out.println("Text1 = " + text1);
+		System.out.println("Text2 = " + text2);
 
-		assertEquals(0.75, distance, 0.0);
+		double distance = calculateDistance(text1, text2);
+		printDistance(distance);
+
+		assertEquals(0.7227342478134157, distance, 0.0);
 	}
 
-	private double calculateSimilarity(String text1, String text2) {
+	private double calculateDistance(String text1, String text2) {
 		DocumentDistanceCalculator distanceCalculator = new DocumentDistanceCalculator();
 		double distance = distanceCalculator.distance(new Document(text1), new Document(text2));
 		ExecutionTimePrinter.print(distanceCalculator.getExecutionTime());
 		return distance;
 	}
 
-	private void printSimiliarity(double distance) {
-		System.out.println(String.format("similar=%.1f%%", distance * 100));
+	private void printDistance(double distance) {
+		System.out.println(String.format("distance=%.2f - %s\n", distance, strDistance(distance)));
+	}
+
+	private String strDistance(double distance) {
+		if (distance == 0.0)
+			return "Similar";
+		else if (distance >= (Math.PI / 2))
+			return "Different";
+		return "Almost similar";
 	}
 
 }
